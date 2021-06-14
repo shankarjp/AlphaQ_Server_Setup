@@ -37,4 +37,5 @@ do
 	setfacl -m mask:rwx /home/appDev_"$m"
 done
 
+setfacl -m other:--- /home/Jay_Jay
 

@@ -18,20 +18,20 @@ do
 	then
 		touch /home/sysAd_"$i"/meeting_schedule.txt
 	fi
-	$CONTENT > /home/sysAd_"$i"/meeting_schedule.txt
+	echo $CONTENT > /home/sysAd_"$i"/meeting_schedule.txt
 	
 	#Adding schedule to webDev accounts
 	if [[ ! -e /home/webDev_"$i"/meeting_schedule.txt ]]
 	then
 		touch /home/webDev_"$i"/meeting_schedule.txt
 	fi
-	$CONTENT > /home/webDev_"$i"/meeting_schedule.txt
+	echo $CONTENT > /home/webDev_"$i"/meeting_schedule.txt
 	
 	#Adding schedule to appDev accounts
 	if [[ ! -e /home/appDev_"$i"/meeting_schedule.txt ]]
 	then
 		touch /home/appDev_"$i"/meeting_schedule.txt
 	fi
-	$CONTENT > /home/appDev_"$i"/meeting_schedule.txt
+	echo $CONTENT > /home/appDev_"$i"/meeting_schedule.txt
 done
 

@@ -1,8 +1,10 @@
 #! /bin/bash
 
+#check attendanceList.txt file for the output
 URL='https://inductions.delta.nitt.edu/sysad-task-1-attendance.log'
 wget -N "$URL"
 
+>attendanceList.txt
 if [ -z $1 ] && [ -z $2 ]
 then
 	awk '{ a[$3]++ } END { for (b in a) { print substr(b, 1, length(b)-1) } }' sysad-task-1-attendance.log | sort > dates.txt
@@ -14,7 +16,7 @@ then
 		do
 			if [ -z "$(grep $date testfile.txt)" ]
 			then
-				echo "sysAd_$i $date"
+				echo "sysAd_$i $date" >>attendanceList.txt
 			fi
 		done <dates.txt
 		
@@ -24,7 +26,7 @@ then
 		do
 			if [ -z "$(grep $date testfile.txt)" ]
 			then
-				echo "webDev_$i $date"
+				echo "webDev_$i $date" >>attendanceList.txt
 			fi
 		done <dates.txt
 		
@@ -34,7 +36,7 @@ then
 		do
 			if [ -z "$(grep $date testfile.txt)" ]
 			then
-				echo "appDev_$i $date"
+				echo "appDev_$i $date" >>attendanceList.txt
 			fi
 		done <dates.txt
 	done
@@ -50,7 +52,7 @@ else
 		do
 			if [ -z "$(grep $date testfile.txt)" ]
 			then
-				echo "sysAd_$i $date"
+				echo "sysAd_$i $date" >>attendanceList.txt
 			fi
 		done <dates.txt
 		
@@ -60,7 +62,7 @@ else
 		do
 			if [ -z "$(grep $date testfile.txt)" ]
 			then
-				echo "webDev_$i $date"
+				echo "webDev_$i $date" >>attendanceList.txt
 			fi
 		done <dates.txt
 		
@@ -70,7 +72,7 @@ else
 		do
 			if [ -z "$(grep $date testfile.txt)" ]
 			then
-				echo "appDev_$i $date"
+				echo "appDev_$i $date" >>attendanceList.txt
 			fi
 		done <dates.txt
 	done
