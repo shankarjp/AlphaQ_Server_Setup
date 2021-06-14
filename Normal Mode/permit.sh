@@ -1,23 +1,41 @@
 #! /bin/bash
 
-for i in {01..10}
+groupadd -f thirdyearsysad
+groupadd -f fourthyearsysad
+groupadd -f thirdyearwebdev
+groupadd -f fourthyearwebdev
+groupadd -f thirdyearappdev
+groupadd -f fourthyearappdev
+
+for i in {11..30}
 do
-	for j in {11..30}
-	do
-		setfacl -m u:sysAd_"$j":r-x /home/sysAd_"$i"
-		setfacl -m u:webDev_"$j":r-x /home/webDev_"$i"
-		setfacl -m u:appDev_"$j":r-x /home/appDev_"$i"
-	done
+	if [ $i -le 20 ]
+	then
+		usermod -a -G thirdyearsysad sysAd_"$i"
+		usermod -a -G thirdyearwebdev webDev_"$i"
+		usermod -a -G thirdyearappdev appDev_"$i"
+	else
+		usermod -a -G fourthyearsysad sysAd_"$i"
+		usermod -a -G fourthyearwebdev webDev_"$i"
+		usermod -a -G fourthyearappdev appDev_"$i"
+	fi
+done
+
+for j in {01..10}
+do
+	setfacl -m g:thirdyearsysad:r-x /home/sysAd_"$j"
+	setfacl -m g:thirdyearwebdev:r-x /home/webDev_"$j"
+	setfacl -m g:thirdyearappdev:r-x /home/appDev_"$j"
+	setfacl -m g:fourthyearsysad:r-x /home/sysAd_"$j"
+	setfacl -m g:fourthyearwebdev:r-x /home/webDev_"$j"
+	setfacl -m g:fourthyearappdev:r-x /home/appDev_"$j"
 done
 
 for k in {11..20}
 do
-	for l in {21..30}
-	do
-		setfacl -m u:sysAd_"$l":r-x /home/sysAd_"$k"
-		setfacl -m u:webDev_"$l":r-x /home/webDev_"$k"
-		setfacl -m u:appDev_"$l":r-x /home/appDev_"$k"
-	done
+	setfacl -m g:fourthyearsysad:r-x /home/sysAd_"$k"
+	setfacl -m g:fourthyearwebdev:r-x /home/webDev_"$k"
+	setfacl -m g:fourthyearappdev:r-x /home/appDev_"$k"
 done
 
 for n in {01..30}
@@ -29,12 +47,15 @@ done
 
 for m in {01..30}
 do
-	setfacl -m other:--- /home/sysAd_"$m"
-	setfacl -m other:--- /home/webDev_"$m"
-	setfacl -m other:--- /home/appDev_"$m"
 	setfacl -m mask:rwx /home/sysAd_"$m"
 	setfacl -m mask:rwx /home/webDev_"$m"
 	setfacl -m mask:rwx /home/appDev_"$m"
+	chmod g-rwx /home/sysAd_"$m"
+	chmod g-rwx /home/webDev_"$m"
+	chmod g-rwx /home/appDev_"$m"
+	chmod o-rwx /home/sysAd_"$m"
+	chmod o-rwx /home/webDev_"$m"
+	chmod o-rwx /home/appDev_"$m"
 done
 
 setfacl -m other:--- /home/Jay_Jay

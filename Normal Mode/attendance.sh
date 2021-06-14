@@ -7,11 +7,11 @@ wget -N "$URL"
 >attendanceList.txt
 if [ -z $1 ] && [ -z $2 ]
 then
-	awk '{ a[$3]++ } END { for (b in a) { print substr(b, 1, length(b)-1) } }' sysad-task-1-attendance.log | sort > dates.txt
+	awk '{print substr($3, 1, length($3)-1)}' sysad-task-1-attendance.log | uniq > dates.txt
 	for i in {01..30}
 	do
 		#Printing sysAd users
-		awk '{printf("%-15s%10s\n"), $1, substr($3, 1, length($3)-1)}' sysad-task-1-attendance.log | grep sysAd_"$i" > testfile.txt
+		awk '{printf("%s%s\n"), $1, substr($3, 1, length($3)-1)}' sysad-task-1-attendance.log | grep sysAd_"$i" > testfile.txt
 		while read date
 		do
 			if [ -z "$(grep $date testfile.txt)" ]
@@ -21,7 +21,7 @@ then
 		done <dates.txt
 		
 		#Printing webDev users
-		awk '{printf("%-15s%10s\n"), $1, substr($3, 1, length($3)-1)}' sysad-task-1-attendance.log | grep webDev_"$i" > testfile.txt
+		awk '{printf("%-s%s\n"), $1, substr($3, 1, length($3)-1)}' sysad-task-1-attendance.log | grep webDev_"$i" > testfile.txt
 		while read date
 		do
 			if [ -z "$(grep $date testfile.txt)" ]
@@ -31,7 +31,7 @@ then
 		done <dates.txt
 		
 		#Printing appDev users
-		awk '{printf("%-15s%10s\n"), $1, substr($3, 1, length($3)-1)}' sysad-task-1-attendance.log | grep appDev_"$i" > testfile.txt
+		awk '{printf("%s%s\n"), $1, substr($3, 1, length($3)-1)}' sysad-task-1-attendance.log | grep appDev_"$i" > testfile.txt
 		while read date
 		do
 			if [ -z "$(grep $date testfile.txt)" ]
@@ -47,7 +47,7 @@ else
 	for i in {01..30}
 	do
 		#Printing sysAd users
-		awk -v dateA="$DATE1" -v dateB="$DATE2" 'substr($3, 1, length($3)-1)>=dateA && substr($3, 1, length($3)-1)<=dateB {printf("%-15s%10s\n"), $1, substr($3, 1, length($3)-1)}' sysad-task-1-attendance.log | grep sysAd_"$i" > testfile.txt
+		awk -v dateA="$DATE1" -v dateB="$DATE2" 'substr($3, 1, length($3)-1)>=dateA && substr($3, 1, length($3)-1)<=dateB {printf("%s%s\n"), $1, substr($3, 1, length($3)-1)}' sysad-task-1-attendance.log | grep sysAd_"$i" > testfile.txt
 		while read date
 		do
 			if [ -z "$(grep $date testfile.txt)" ]
@@ -57,7 +57,7 @@ else
 		done <dates.txt
 		
 		#Printing webDev users
-		awk -v dateA="$DATE1" -v dateB="$DATE2" 'substr($3, 1, length($3)-1)>=dateA && substr($3, 1, length($3)-1)<=dateB {printf("%-15s%10s\n"), $1, substr($3, 1, length($3)-1)}' sysad-task-1-attendance.log | grep webDev_"$i" > testfile.txt
+		awk -v dateA="$DATE1" -v dateB="$DATE2" 'substr($3, 1, length($3)-1)>=dateA && substr($3, 1, length($3)-1)<=dateB {printf("%s%s\n"), $1, substr($3, 1, length($3)-1)}' sysad-task-1-attendance.log | grep webDev_"$i" > testfile.txt
 		while read date
 		do
 			if [ -z "$(grep $date testfile.txt)" ]
@@ -67,7 +67,7 @@ else
 		done <dates.txt
 		
 		#Printing appDev users
-		awk -v dateA="$DATE1" -v dateB="$DATE2" 'substr($3, 1, length($3)-1)>=dateA && substr($3, 1, length($3)-1)<=dateB {printf("%-15s%10s\n"), $1, substr($3, 1, length($3)-1)}' sysad-task-1-attendance.log | grep appDev_"$i" > testfile.txt
+		awk -v dateA="$DATE1" -v dateB="$DATE2" 'substr($3, 1, length($3)-1)>=dateA && substr($3, 1, length($3)-1)<=dateB {printf("%s%s\n"), $1, substr($3, 1, length($3)-1)}' sysad-task-1-attendance.log | grep appDev_"$i" > testfile.txt
 		while read date
 		do
 			if [ -z "$(grep $date testfile.txt)" ]
